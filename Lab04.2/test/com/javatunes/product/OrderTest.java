@@ -19,27 +19,34 @@ public class OrderTest {
   
   @Before
   public void init() {
-    productCart = new ShoppingCart<Product>();
+    productCart = new ShoppingCart<>();            //Product is gray here bc it is called out in the private field within the class
     productCart.addItem(new MusicItem("CD-501"));
     productCart.addItem(new MediaPlayer("MP3-LP150"));
     
-    musicCart = new ShoppingCart<MusicItem>();
+    musicCart = new ShoppingCart<>();          //MusicItem is gray here bc it is called out in the private field within the class
     musicCart.addItem(new MusicItem("CD-521"));
     musicCart.addItem(new MusicItem("CD-514"));
     
-    mediaCart = new ShoppingCart<MediaPlayer>();
+    mediaCart = new ShoppingCart<>();       //MediaPlayer is gray here bc it is called out in the private field within the class
     mediaCart.addItem(new MediaPlayer("AAC-PL233"));
   }
   
-  /**
-   * TODO: create new Order for each cart above and pass cart to processOrder().
-   *  For example, create three Order objects: "order-1", "order-2", "order-3."
-   *  order-1 is for the contents of productCart,
-   *  order-2 is for the contents of musicCart,
-   *  order-3 is for the contents of meduaCart.
-   */
   @Test
   public void testProcessCart() {
-    
+    Order order1 = new Order("order-1");
+    order1.processCart(productCart);                  //Call out instance processCart method of reference type order1 and pass it productCart
+    assertNotNull(order1);
+    assertEquals("order-1", order1.getId());
+
+
+    Order order2 = new Order("order-2");
+    order2.processCart(musicCart);
+    assertEquals("order-2", order2.getId());
+
+
+    Order order3 = new Order("order-3");
+    order3.processCart(mediaCart);
+    assertEquals("order-3", order3.getId());
+
   }
 }

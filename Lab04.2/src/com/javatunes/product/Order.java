@@ -8,23 +8,26 @@
  */
 package com.javatunes.product;
 
-import java.util.Collection;
+
 
 public class Order {
-  private String id;
+  private final String id;
   
   public Order(String id) {
     this.id = id;
   }
   
-  /**
-   * TODO:
-   * get the items from the cart and iterate over them, print each item's product code
-   * get cart total and print
-   */
-  public void processCart(Object reference_to_cart) {
-    
-  }
+
+
+  //This is a ShoppingCart invokes any type that has an IS-A relationship with Product?
+  public void processCart(ShoppingCart<? extends Product> cart) {
+      for(Product items : cart.allItems()) {    //To use something on the rt side it has to be an Iterable(Set, Collection or Array)
+        System.out.println(items.getCode());    //Call getCode method  of reference item
+        System.out.println(cart.total());       //Call the total method of reference cart
+        System.out.println(getId());            //
+    }
+    }
+
   
   public String getId() {
     return id;

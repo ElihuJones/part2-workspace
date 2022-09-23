@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import com.entertainment.Television;
 
@@ -22,22 +23,35 @@ public class Catalog {
   // prevent direct instantiation, this is an all-static class
   private Catalog() {
   }
-  
+
   /**
    * Searches catalog by brand, and returns a collection of matching Televisions.
    * A no-matches result should be an empty collection (not null).
    */
   public static Collection<Television> findByBrand(String brand) {
-    return null;
+    Collection<Television> result = new ArrayList<>();
+    for (Television tv : catalog) {
+      if (tv.getBrand().equals(brand)) {
+        result.add(tv);
+      }
+    }
+    return result;
   }
-  
+
   /**
-   * Searches catalog by one or more brands, and returns a map with an entry for each brand supplied, 
+   * Searches catalog by one or more brands, and returns a map with an entry for each brand supplied,
    * with a corresponding collection of matching Televisions for that brand.
    * A no-brands-passed result should be an empty map (not null).
    */
   public static Map<String,Collection<Television>> findByBrands(String... brands) {
-    return null;
+    Map<String,Collection<Television>> result = new HashMap<>();
+    for (String brand : brands) {
+      result.put(brand, findByBrand(brand));
+
+    }
+
+
+    return result;
   }
 
   /**
@@ -45,9 +59,9 @@ public class Catalog {
    * NOTE: returning a direct reference to it has consequences!
    *  A client can manipulate it, since it has a direct reference to it.
    *  Sometimes this is okay, but not here.
-   *  
+   *
    * TODO: change this to return a read-only view of the catalog.
-   * 
+   *
    * You should explore the Javadoc for the java.util.Collections *class*.
    *  This is an all-static utility class, not the java.util.Collection interface.
    */
