@@ -12,12 +12,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import gov.irs.TaxPayer;
 
-public enum IRSEnum {
-  INSTANCE;
+ enum IRSEnum implements IRS {
+  //as part of class initialization all enums are created then. In this case IRSEnum.
+  // compiler expands this to public static final IRSEnum INSTANCE = new IRSEnum();
+  INSTANCE {
+    @Override
+    public void register(TaxPayer payer) {
+      super.register(payer);
+    }
+  };
   
   // BUSINESS CODE
   private Collection<TaxPayer> payers = new ArrayList<>();
   
+  @Override
   public void collectTaxes() {
     for (TaxPayer payer : payers) {
       payer.payTaxes();
@@ -35,6 +43,8 @@ public enum IRSEnum {
   }
 
   // so we can see when IRSEnum class is loaded
+  //static initialization block
+  //This static block loads after IRSEnum() in line 46 and 47.
   static {
     System.out.println("--IRSEnum class loaded");
   }

@@ -53,10 +53,10 @@ public class IRS {
   }
   
   private static class IRSHolder {
-    private static IRS instance = new IRS();
+    private static final IRS instance = new IRS();    //static initialization bc of declaration with assignment
     
     // so we can see when IRS.IRSHolder class is loaded
-    static {
+    static {                                                //All this will do is print something out.
       System.out.println("--IRS.IRSHolder class loaded");
     }
   }
