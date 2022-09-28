@@ -1,6 +1,8 @@
 package com.javatunes.personnel;
 
 import static org.junit.Assert.*;
+
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Before;
@@ -52,7 +54,10 @@ public class EmployeeFactoryTest {
    */
   @Test
   public void testCreateEmployeeSalaried() {
-    // TODO
+    SalariedEmployee emp = (SalariedEmployee) EmployeeFactory.createEmployee(seMap);
+    assertEquals("Jackie", emp.getName());
+    assertEquals(Date.valueOf("1990-08-24"), emp.getHireDate());
+    assertEquals(50_000.0, emp.getSalary(), 0.0001);
   }
   
   /**
@@ -60,7 +65,10 @@ public class EmployeeFactoryTest {
    */
   @Test
   public void testCreateEmployeeHourly() {
-    // TODO
+    HourlyEmployee emp = (HourlyEmployee) EmployeeFactory.createEmployee(heMap);
+    assertEquals("Jackie", emp.getName());
+    assertEquals(Date.valueOf("1990-08-24"), emp.getHireDate());
+    assertEquals(2000, emp.getRate() * emp.getHours(), 0.0001);
   }
   
   /**
@@ -68,7 +76,14 @@ public class EmployeeFactoryTest {
    * The only valid values for "type" are "HE" or "SE".
    */
   @Test
-  public void testCreateEmployeeInvalidTypeThrowsIllegalArgumentException() {
-    // TODO
-  }
+  public void testCreateEmployeeInvalidTypeThrowsIllegalArgumentException() throws IllegalArgumentException {
+    try {
+      HourlyEmployee emp = (HourlyEmployee) EmployeeFactory.createEmployee(heMap);
+      assertEquals("HE", seMap.get("type"));
+      fail("not it");
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("Only current employees are HE or SE");
+    }
+    }
+
 }

@@ -8,13 +8,23 @@
  */
 package com.javatunes.product;
 
+import com.javatunes.billing.Location;
 import java.util.Collection;
 
 public class Order {
   private String id;
+  private double totalCost;
+  private Location place;
+
+
   
   public Order(String id) {
     this.id = id;
+  }
+
+  public Order(String id, Location place) {
+    this.id = id;
+    this.place = place;
   }
   
   /**
@@ -22,6 +32,11 @@ public class Order {
    * get the items from the cart and iterate over them, print each item's product code
    * get cart total and print
    */
+
+  public double getTax() {
+    return 0.0;
+  }
+
   public void processCart(ShoppingCart<? extends Product> cart) {
     System.out.println("Order: " + getId() + " contains the following:");
     
@@ -29,10 +44,17 @@ public class Order {
     for (Product product : cartItems) {
       System.out.println(product.getCode());
     }
+    double total = cart.total();
     System.out.println("Order Total: " + cart.total());
+    totalCost = cart.total();
   }
   
   public String getId() {
     return id;
+  }
+
+
+  public double getTotalCost() {
+    return totalCost;
   }
 }
