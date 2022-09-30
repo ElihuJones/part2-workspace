@@ -21,11 +21,11 @@ public class StringSortTest {
     System.out.println("Order will be added to following list:");
     System.out.println(names + "\n");
     
-    System.out.println("Natural order:");
+    System.out.println("Natural order:");     //case sensitive alphabetical order
     names.sort(null);
     System.out.println(names + "\n");
     
-    System.out.println("Increasing length - Comparator class:");
+    System.out.println("Decreasing length - Comparator class:");    //prints in order of length. small to large
     names.sort(new StringLengthComparator());
     System.out.println(names + "\n");
     
@@ -33,5 +33,8 @@ public class StringSortTest {
     // TODO: call names.sort() and pass in an "expression" lambda
     // hint: a compatible lambda will have this form:
     //       (obj1, obj2) -> expression-that-evaluates-to-int
+
+    names.sort((str1, str2) -> str2.length() - str1.length());
+    System.out.println(names);
   }
 }
